@@ -33,7 +33,7 @@ private
       end
     end
 
-    self.slug = slug_link
+    #self.slug = slug_link
     Rails.cache.delete('page_not_exist/' + self.slug)
   end
   
@@ -42,10 +42,10 @@ private
   end
 
   def slug_link
-    ensure_slash_prefix slug
+    slug
   end
   
-  def ensure_slash_prefix(str)
-    str.index('/') == 0 ? str : '/' + str
-  end
+  #def ensure_slash_prefix(str)
+  #  str.index('/') == 0 ? str : '/' + str
+  #end
 end
