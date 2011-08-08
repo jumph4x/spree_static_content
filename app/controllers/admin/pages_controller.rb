@@ -1,6 +1,11 @@
 class Admin::PagesController < Admin::ResourceController
   update.after :expire_cache
   
+  def index
+    @search = Page.metasearch(params[:search])
+    @pages = @search.paginate(:per_page => Spree::Config[:admin_products_per_page], :page => params[:page])
+  end
+  
   def new
     @page = @object
   end

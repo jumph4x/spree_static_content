@@ -10,29 +10,57 @@
 <h1><%=t("static_content.static_pages") %></h1>
 
 <table class="index">
-	<tr>
-		<th><%= Page.human_attribute_name(:title) %></th>
-		<th><%= t("static_content.link") %></th>
-		<th><%= Page.human_attribute_name(:visible) %></th>
-		<th><%= t("action") %></th>
+  <tr>
+    <th><%= Page.human_attribute_name(:title) %></th>
+    <th><%= Page.human_attribute_name(:slug) %></th>
+    <th><%= t("static_content.link") %></th>
+    <th><%= Page.human_attribute_name(:visible) %></th>
+    <th><%= t("action") %></th>
   </tr>
-	<tbody>
-    	<% @pages.each do |page| %>
-		<tr class="<%= cycle('even', 'odd') %>" id="<%= dom_id page %>">
-			<td>
-				<%= page.title %>
-			</td>
-			<td>
-				<%= link_to page.link, page.link %>
-			</td>
-			<td>
-			  <%= icon('tick') if page.visible %>
-			</td>
-			<td>
+  <tbody>
+      <% @pages.each do |page| %>
+    <tr class="<%= cycle('even', 'odd') %>" id="<%= dom_id page %>">
+      <td>
+        <%= page.title %>
+      </td>
+      <td>
+        <%= page.slug %>
+      </td>
+      <td>
+        <%= link_to page.link, page.link %>
+      </td>
+      <td>
+        <%= icon('tick') if page.visible %>
+      </td>
+      <td>
         <%= link_to_edit page %> &nbsp;
         <%= link_to_delete page %>
-	    </td>
-		</tr>
-		<% end %>
-	</tbody>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
 </table>
+
+
+<% content_for :sidebar do %>
+<div class="box">
+  <h3><%= t(:search) %></h3>
+  <%= form_for [:admin, @search] do |f| %>
+    <p>
+      <label><%= Page.human_attribute_name(:title) %></label><br />
+      <%= f.text_field :title_like, :size => 25 %>
+    </p>
+    <p>
+      <label><%= Page.human_attribute_name(:slug) %></label><br />
+      <%= f.text_field :slug_like, :size => 25 %>
+    </p>
+    <p>
+      <%= f.check_box :visible_is_true, {}, "1", "" %>
+      <label>
+        <%= Page.human_attribute_name(:visible) %>
+      </label>
+    </p>
+    <p><%= button t("search") %></p>
+  <% end %>
+</div>
+<% end %>
