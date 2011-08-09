@@ -41,6 +41,7 @@
   </tbody>
 </table>
 
+<%= will_paginate(@pages, :previous_label => "&#171; #{t('previous')}", :next_label => "#{t('next')} &#187;") %>
 
 <% content_for :sidebar do %>
 <div class="box">
