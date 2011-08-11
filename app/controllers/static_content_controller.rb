@@ -1,5 +1,5 @@
 class StaticContentController < Spree::BaseController
-  caches_action :show
+  #caches_action :show
   
   def show
     path = case params[:path]
